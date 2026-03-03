@@ -22,6 +22,7 @@ const Stack = createStackNavigator();
 function DrawerNavigator() {
   return (
     <Drawer.Navigator
+      useLegacyImplementation
       drawerContent={(props) => <DrawerContent {...props} />}
       screenOptions={{
         headerShown: false,
