@@ -5,10 +5,10 @@ import {
   TouchableOpacity,
   StyleSheet,
   ScrollView,
-  Image,
 } from 'react-native';
 import { Feather } from '@expo/vector-icons';
-import { DrawerContentScrollView } from '@react-navigation/drawer';
+import { useNavigation, useNavigationState } from '@react-navigation/native';
+import { useDrawer } from '../navigation/DrawerContext';
 
 const menuItems = [
   { name: 'Bildirim', icon: 'bell', screen: 'Bildirim' },
@@ -25,12 +25,18 @@ const menuItems = [
   { name: 'Kısa Bilgiler', icon: 'zap', screen: 'KısaBilgiler' },
 ];
 
-export default function DrawerContent(props) {
-  const { navigation, state } = props;
-  const activeRouteName = state?.routeNames?.[state?.index] || '';
+export default function DrawerContent({ navigationRef, closeDrawer }) {
+  const currentRouteName = navigationRef?.current?.getCurrentRoute?.()?.name || '';
+
+  const handleNavigate = (screen) => {
+    closeDrawer();
+    if (navigationRef?.current) {
+      navigationRef.current.navigate(screen);
+    }
+  };
 
   return (
-    <DrawerContentScrollView {...props} contentContainerStyle={styles.container}>
+    <ScrollView style={styles.scrollView} contentContainerStyle={styles.container}>
       {/* Profile Header */}
       <View style={styles.profileSection}>
         <View style={styles.avatarContainer}>
@@ -45,12 +51,12 @@ export default function DrawerContent(props) {
       {/* Menu Items */}
       <View style={styles.menuSection}>
         {menuItems.map((item) => {
-          const isActive = activeRouteName === item.screen;
+          const isActive = currentRouteName === item.screen;
           return (
             <TouchableOpacity
               key={item.name}
               style={[styles.menuItem, isActive && styles.menuItemActive]}
-              onPress={() => navigation.navigate(item.screen)}
+              onPress={() => handleNavigate(item.screen)}
               activeOpacity={0.7}
             >
               <View style={[styles.iconWrapper, isActive && styles.iconWrapperActive]}>
@@ -76,13 +82,17 @@ export default function DrawerContent(props) {
         <Feather name="log-out" size={18} color="#EF4444" />
         <Text style={styles.logoutText}>Çıkış Yap</Text>
       </TouchableOpacity>
-    </DrawerContentScrollView>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  scrollView: {
     flex: 1,
+    backgroundColor: '#fff',
+  },
+  container: {
+    flexGrow: 1,
     paddingBottom: 20,
   },
   profileSection: {

@@ -2,7 +2,6 @@
   "expo": {
     "name": "MUGodev1",
     "slug": "MUGodev1",
-    "newArchEnabled": false,
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

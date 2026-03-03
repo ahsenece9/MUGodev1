@@ -8,12 +8,14 @@ import {
   StatusBar,
 } from 'react-native';
 import { Feather } from '@expo/vector-icons';
+import { useDrawer } from '../navigation/DrawerContext';
 import { courses } from '../data/mockData';
 
 const COLORS = ['#7C3AED', '#10B981', '#F59E0B', '#EF4444'];
 const EMOJIS = ['🏃‍♀️', '🥗', '🧘‍♀️', '💊'];
 
 export default function CoursesScreen({ navigation }) {
+  const { openDrawer } = useDrawer();
   const renderCourse = ({ item, index }) => (
     <TouchableOpacity
       style={styles.courseCard}
@@ -70,7 +72,7 @@ export default function CoursesScreen({ navigation }) {
       <StatusBar barStyle="light-content" backgroundColor="#7C3AED" />
 
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.openDrawer()} style={styles.menuBtn}>
+        <TouchableOpacity onPress={() => openDrawer()} style={styles.menuBtn}>
           <Feather name="menu" size={24} color="#fff" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Kurslar</Text>

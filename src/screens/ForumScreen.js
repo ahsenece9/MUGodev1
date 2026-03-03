@@ -8,12 +8,14 @@ import {
   StatusBar,
 } from 'react-native';
 import { Feather } from '@expo/vector-icons';
+import { useDrawer } from '../navigation/DrawerContext';
 import PostCard from '../components/PostCard';
 import { forumPosts } from '../data/mockData';
 
 const categories = ['Tümü', 'Forum', 'Ev Ödevi', 'Danışmanlık'];
 
 export default function ForumScreen({ navigation }) {
+  const { openDrawer } = useDrawer();
   const [activeCategory, setActiveCategory] = React.useState('Tümü');
 
   const filtered =
@@ -27,7 +29,7 @@ export default function ForumScreen({ navigation }) {
 
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.openDrawer()} style={styles.menuBtn}>
+        <TouchableOpacity onPress={() => openDrawer()} style={styles.menuBtn}>
           <Feather name="menu" size={24} color="#fff" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Forum</Text>

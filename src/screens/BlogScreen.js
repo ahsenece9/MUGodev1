@@ -8,15 +8,17 @@ import {
   StatusBar,
 } from 'react-native';
 import { Feather } from '@expo/vector-icons';
+import { useDrawer } from '../navigation/DrawerContext';
 import { articles } from '../data/mockData';
 
 export default function BlogScreen({ navigation }) {
+  const { openDrawer } = useDrawer();
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#7C3AED" />
 
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.openDrawer()} style={styles.menuBtn}>
+        <TouchableOpacity onPress={() => openDrawer()} style={styles.menuBtn}>
           <Feather name="menu" size={24} color="#fff" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Blog</Text>

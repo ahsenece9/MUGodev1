@@ -8,9 +8,11 @@ import {
   StatusBar,
 } from 'react-native';
 import { Feather } from '@expo/vector-icons';
+import { useDrawer } from '../navigation/DrawerContext';
 import { notifications } from '../data/mockData';
 
 export default function NotificationsScreen({ navigation }) {
+  const { openDrawer } = useDrawer();
   const renderItem = ({ item }) => (
     <TouchableOpacity style={styles.notifItem} activeOpacity={0.7}>
       <View style={[styles.iconWrapper, { backgroundColor: item.bgColor }]}>
@@ -31,7 +33,7 @@ export default function NotificationsScreen({ navigation }) {
 
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.openDrawer()} style={styles.menuBtn}>
+        <TouchableOpacity onPress={() => openDrawer()} style={styles.menuBtn}>
           <Feather name="menu" size={24} color="#fff" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Bildirimler</Text>

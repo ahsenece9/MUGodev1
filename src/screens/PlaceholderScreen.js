@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, StatusBar } from 'react-native';
 import { Feather } from '@expo/vector-icons';
+import { useDrawer } from '../navigation/DrawerContext';
 
 const iconMap = {
   Danışmanlık: { icon: 'user-check', color: '#10B981', bg: '#D1FAE5', emoji: '👩‍⚕️' },
@@ -12,6 +13,7 @@ const iconMap = {
 };
 
 export default function PlaceholderScreen({ navigation, route }) {
+  const { openDrawer } = useDrawer();
   const name = route.name;
   const info = iconMap[name] || { icon: 'layout', color: '#7C3AED', bg: '#EDE9FE', emoji: '📱' };
 
@@ -20,7 +22,7 @@ export default function PlaceholderScreen({ navigation, route }) {
       <StatusBar barStyle="light-content" backgroundColor="#7C3AED" />
 
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.openDrawer()} style={styles.menuBtn}>
+        <TouchableOpacity onPress={() => openDrawer()} style={styles.menuBtn}>
           <Feather name="menu" size={24} color="#fff" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>{name}</Text>
